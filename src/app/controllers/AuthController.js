@@ -47,7 +47,7 @@ router.post('/auth', async (req, res) => {
 
         return res.send({ user, token: generateToken({ id: user._id }) });
     } catch (err) {
-        return res.status(500).send({ error: 'Something went wrong. Please try again.' })
+        return res.status(400).send({ error: 'Something went wrong. Please try again.' })
     }
 });
 
@@ -79,12 +79,12 @@ router.post('/forgot_pass', async (req, res) => {
             context: { token },
         }, (err) => {
             if (err)
-                return res.status(500).send({ error: 'Cannot send forgot password email' });
+                return res.status(400).send({ error: 'Cannot send forgot password email' });
 
             return res.send();
         })
     } catch (err) {
-        res.status(500).send({ error: 'Something went wrong. Please try again.' });
+        res.status(400).send({ error: 'Something went wrong. Please try again.' });
     }
 });
 
@@ -110,7 +110,7 @@ router.post('/reset_pass', async (req, res) => {
 
         res.status(200).send({success: 'Password reseted successfuly'});
     } catch (err) {
-        res.status(500).send({ error: 'Something went wrong. Please try again.' });
+        res.status(400).send({ error: 'Something went wrong. Please try again.' });
     }
 })
 
