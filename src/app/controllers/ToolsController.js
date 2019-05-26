@@ -57,15 +57,6 @@ router.get('/search/:toolId', async (req, res) => {
     }
 });
 
-router.put('/update/:toolId', async (req, res) => {
-    try {
-        const tool = await Tool.findById(req.params.toolId);
-
-    } catch (err) {
-        return res.status(400).send({ error: 'Something went wrong. Please try again.' });
-    }
-});
-
 router.delete('/destroy/:toolId', async (req, res) => {
     try {
         await Tool.findByIdAndDelete(req.params.toolId);
