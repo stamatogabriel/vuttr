@@ -1,0 +1,206 @@
+FORMAT: 1A
+HOST: localhost:3000
+
+# VUTTR - Very Usefull Tools to Remember
+
+# Group API
+
+## About
+*VUTTR* is a tool for sharing and searching for tools that make everyday life easier.
+
+## Authentication
+*VUTTR* uses JWT Authorization. First you create a new (or acquire existing) jwt token. After you have acquired your token you can use it to access other resources within token' scope.
+
+## Media Types
+Where applicable this API uses the JSON media-type to represent resources states and affordances.
+
+Requests with a message-body are using plain JSON to set or update resource states.
+
+# Group Tools
+Tools-related resources of *VUTTR API*.
+
+## Tools [/tools]
+
+### Register Tool [POST]
+To register a tool, you must send the required attributes in JSON format.
+
+Attributes needed to register a tool:
+
++ id
++ created_at
++ updated_at
++ name
++ link
++ description
++ tags
+
+The * id * and * created_at * states are assigned by the VUTTR API at creation time.
+
+The * updated_at * state are assigned by the VUTTR API at creation and / or update time.
+
+    + Request Register a tool
+
+        + Headers
+
+                Accept: application/json
+                Content-Type: application/json
+                Authorization: Bearer token
+        + Attributes (tool)
+
+    + Response 201 (application/json)
+        + Attributes (Created)
+
+### List Tools [GET]
+    + Response 200 (application/json)
+        + Attributes (array[Tools])
+
+    + Response 404 (application/json)
+        + Attributes (Error)
+
+## Tool [/tools/{id_tool}]
+    + Parameters
+        + id_tool: 1 (number, required) - Tool's Id
+
+### Get Tool [GET]
+    + Response 200 (application/json)
+        + Attributes (Message)
+
+    + Response 404 (application/json)
+        + Attributes (Error)
+
+### Delete Tool [DELETE]
+    + Response 200 (application/json)
+        + Attributes (Id)
+
+    + Response 404 (application/json)
+        + Attributes (Error)
+
+### Update Tool [PUT]
+    + Request Update a tool
+
+        + Headers
+
+                Accept: application/json
+                Content-Type: application/json
+        + Attributes (Tool)
+
+    + Response 200 (application/json)
+        + Attributes (Updated)
+
+    + Response 400 (application/json)
+        + Attributes (Error)
+
+# Group Access Authorization and Control
+Access and Control of *VUTTR* JWT token.
+
+## Authorization [/auth]
+Authorization Resource represents an authorization granted to the user. You can **only** access your own authorization, and only through **Bearer Authentication**.
+
+The Authorization Resource has the following attribute:
+
++ token
+
+Where *token* represents an JWT token.
+
+### Create Authorization [POST]
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
++ Response 201
+
+### Remove an Authorization [DELETE]
++ Request
+    + Headers
+
+            Authorization: Bearer QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
++ Response 204
+
+## User [/auth/user]
+
+### Create User [POST]
+To register a user, you must send the required attributes in JSON format.
+
+Attributes needed to register a tool:
+
++ id
++ created_at
++ updated_at
++ username
++ email
++ password
+
+The * id * and * created_at * states are assigned by the VUTTR API at creation time.
+
+The * updated_at * state are assigned by the VUTTR API at creation and / or update time.
+
+Note: Authentication is not required for user registration in the API. Everyone can register
+    
+    + Request Register a user
+
+        + Headers
+
+                Accept: application/json
+                Content-Type: application/json
+                Authorization: Bearer token
+        + Attributes (tool)
+
+    + Response 201 (application/json)
+        + Attributes (Created)
+
+## Control User [/auth/user/{id_user}]
+
+Only user can change or delete their registration in the * VUTTR API *
+
+### Delete User [DELETE]
+    + Response 200 (application/json)
+        + Attributes (Id)
+
+    + Response 404 (application/json)
+        + Attributes (Error)
+
+### Update User [PUT]
+    + Request Update a user
+
+        + Headers
+
+                Accept: application/json
+                Content-Type: application/json
+        + Attributes (Tool)
+
+    + Response 200 (application/json)
+        + Attributes (Updated)
+
+    + Response 400 (application/json)
+        + Attributes (Error)
+
+# Data Structures
+
+## Tool (object)
++ id (number) - Tool's Id
++ name (string) - Tool's name
++ link (string) - Link for Tool's homepage
++ description - Description Tool's functions
++ tags - Tags for search Tool
+
+## ToolRegister(Tool)
++ name (string) - Tool's name
++ link (string) - Link for Tool's homepage
++ description - Description Tool's functions
++ tags - Tags for search Tool
+
+## ToolUpdate (Tool)
++ id_tool (number) - Tool's id
+
+## Error (object)
++ code: 400 (number) - Status code
++ message (string) - Status message
++ description (string) - Status description
+
+## User (object)
++ id (number) - User's id
++ username (string) - User's name
++ email (string) - User's email
++ token (string) - User's token JWT
