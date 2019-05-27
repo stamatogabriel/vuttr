@@ -75,20 +75,6 @@ The * updated_at * state are assigned by the VUTTR API at creation and / or upda
     + Response 404 (application/json)
         + Attributes (Error)
 
-### Update Tool [PUT]
-    + Request Update a tool
-
-        + Headers
-
-                Accept: application/json
-                Content-Type: application/json
-        + Attributes (Tool)
-
-    + Response 200 (application/json)
-        + Attributes (Updated)
-
-    + Response 400 (application/json)
-        + Attributes (Error)
 
 # Group Access Authorization and Control
 Access and Control of *VUTTR* JWT token.
@@ -190,9 +176,6 @@ Only user can change or delete their registration in the * VUTTR API *
 + link (string) - Link for Tool's homepage
 + description - Description Tool's functions
 + tags - Tags for search Tool
-
-## ToolUpdate (Tool)
-+ id_tool (number) - Tool's id
 
 ## Error (object)
 + code: 400 (number) - Status code
